@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IncidentStandard — The Global Workplace Safety Operating System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2137;
+    --navy-mid: #152D45;
+    --blue: #1A6EBF;
+    --blue-bright: #2E8EE8;
+    --accent: #F4A23A;
+    --green: #18A46E;
+    --red: #E03B3B;
+    --white: #FFFFFF;
+    --off-white: #F7F9FC;
+    --muted: #8CA0B3;
+    --text: #1A2940;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(13,33,55,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Syne', system-ui, sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.04em;
+    text-decoration: none; color: var(--white);
+  }
+  .nav-logo-badge {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-bright));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: white;
+    box-shadow: 0 0 16px rgba(46,142,232,0.4);
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 14px; font-weight: 400; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: white; }
+  .nav-cta {
+    background: var(--accent); color: var(--navy) !important;
+    padding: 9px 22px; border-radius: 6px;
+    font-weight: 600 !important; font-size: 13px !important;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(244,162,58,0.4) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 120px 48px 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 20%, rgba(26,110,191,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(244,162,58,0.08) 0%, transparent 60%),
+                linear-gradient(180deg, #0D2137 0%, #091827 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(46,142,232,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,142,232,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(26,110,191,0.15); border: 1px solid rgba(46,142,232,0.3);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; font-weight: 500; color: #7EC8F5;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 800; line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #2E8EE8, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.65);
+    max-width: 600px; margin: 0 auto 44px;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--blue-bright));
+    color: white; border: none; padding: 16px 36px;
+    border-radius: 8px; font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 4px 24px rgba(46,142,232,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(46,142,232,0.5); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.07); color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 16px 36px; border-radius: 8px;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    text-decoration: none; transition: background 0.15s, border-color 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+
+  .hero-trust {
+    display: flex; align-items: center; justify-content: center;
+    gap: 28px; margin-top: 64px; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.45); font-size: 13px; }
+  .trust-icon { font-size: 16px; }
+  .trust-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.15); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── LIVE DEMO BAR ── */
+  .demo-bar {
+    background: rgba(244,162,58,0.1); border-top: 1px solid rgba(244,162,58,0.2);
+    border-bottom: 1px solid rgba(244,162,58,0.2);
+    padding: 14px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    font-size: 13px;
+  }
+  .demo-bar strong { color: var(--accent); }
+  .demo-bar span { color: rgba(255,255,255,0.6); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 96px 48px; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--accent); }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700; line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .section-sub {
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.55); max-width: 540px;
+    font-weight: 300;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ── AI DEMO SECTION ── */
+  .ai-demo-section { background: var(--navy); }
+  .ai-demo-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: center; margin-top: 64px;
+  }
+  .ai-terminal {
+    background: #0A1929;
+    border: 1px solid rgba(46,142,232,0.2);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .terminal-header {
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 20px; display: flex; align-items: center; gap: 8px;
+  }
+  .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .terminal-title { margin-left: 8px; font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
+  .terminal-body { padding: 28px; min-height: 380px; }
+
+  .chat-row { display: flex; gap: 12px; margin-bottom: 20px; align-items: flex-start; }
+  .chat-avatar {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .avatar-ai { background: linear-gradient(135deg, var(--blue), var(--blue-bright)); }
+  .avatar-user { background: rgba(255,255,255,0.1); font-size: 11px; }
+  .chat-bubble {
+    border-radius: 12px; padding: 12px 16px;
+    font-size: 13px; line-height: 1.6; max-width: 320px;
+  }
+  .bubble-ai {
+    background: rgba(26,110,191,0.15);
+    border: 1px solid rgba(46,142,232,0.2);
+    color: rgba(255,255,255,0.85);
+  }
+  .bubble-user {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
+  }
+  .bubble-alert {
+    background: rgba(224,59,59,0.12);
+    border: 1px solid rgba(224,59,59,0.3);
+    color: #FF8A8A;
+  }
+  .alert-header {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 13px; margin-bottom: 10px;
+    color: #FF6B6B;
+  }
+  .alert-step { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.7); margin: 5px 0; }
+  .step-num { background: var(--accent); color: var(--navy); border-radius: 50%; width: 18px; height: 18px; font-size: 10px; font-weight: 700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .typing-indicator { display: flex; gap: 4px; padding: 10px 14px; }
+  .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); animation: typing 1.4s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  .ai-features { display: flex; flex-direction: column; gap: 24px; }
+  .ai-feature {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 20px; border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .ai-feature:hover { background: rgba(26,110,191,0.08); border-color: rgba(46,142,232,0.2); }
+  .ai-feature-icon {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .ai-feature-text h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .ai-feature-text p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── EMERGENCY CODES ── */
+  .codes-section { background: linear-gradient(180deg, #091827, #0D2137); }
+  .codes-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-top: 56px;
+  }
+  .code-card {
+    border-radius: 12px; padding: 24px;
+    border: 1px solid; transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .code-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+  .code-badge {
+    display: inline-block; padding: 4px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .code-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+  .code-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .code-card .code-trigger { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 12px; font-style: italic; }
+
+  /* ── PORTALS SECTION ── */
+  .portals-section { background: var(--navy); }
+  .portals-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; margin-top: 56px;
+  }
+  .portal-card {
+    border-radius: 16px; padding: 32px; position: relative; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .portal-card:hover { transform: translateY(-3px); }
+  .portal-number {
+    font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800;
+    position: absolute; top: 20px; right: 28px;
+    opacity: 0.08; line-height: 1;
+  }
+  .portal-icon { font-size: 28px; margin-bottom: 16px; }
+  .portal-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 10px; }
+  .portal-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 20px; }
+  .portal-features { display: flex; flex-direction: column; gap: 8px; }
+  .portal-feat {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: rgba(255,255,255,0.6);
+  }
+  .portal-feat::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 11px; }
+
+  /* ── PRICING ── */
+  .pricing-section { background: linear-gradient(180deg, #091827, #0D2137); }
+  .pricing-card {
+    max-width: 560px; margin: 56px auto 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(46,142,232,0.3);
+    border-radius: 24px; overflow: hidden;
+    box-shadow: 0 0 80px rgba(26,110,191,0.15);
+  }
+  .pricing-header {
+    background: linear-gradient(135deg, rgba(26,110,191,0.2), rgba(46,142,232,0.1));
+    border-bottom: 1px solid rgba(46,142,232,0.2);
+    padding: 36px; text-align: center;
+  }
+  .pricing-badge {
+    display: inline-block; background: var(--accent); color: var(--navy);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 14px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .pricing-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 72px; font-weight: 800; line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+  }
+  .pricing-amount sup { font-size: 28px; vertical-align: super; }
+  .pricing-period { color: rgba(255,255,255,0.5); font-size: 15px; }
+  .pricing-includes {
+    padding: 36px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .pricing-item {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 14px; color: rgba(255,255,255,0.75);
+  }
+  .pricing-check {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(24,164,110,0.2); border: 1px solid rgba(24,164,110,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--green); flex-shrink: 0; font-weight: 700;
+  }
+  .pricing-footer {
+    padding: 0 36px 36px;
+    display: flex; flex-direction: column; gap: 12px; align-items: center;
+  }
+  .pricing-footer .btn-primary { width: 100%; justify-content: center; font-size: 16px; padding: 18px; }
+  .pricing-note { font-size: 12px; color: rgba(255,255,255,0.35); text-align: center; }
+
+  /* ── STATS ── */
+  .stats-section {
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 64px 48px;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; max-width: 1000px; margin: 0 auto; text-align: center;
+  }
+  .stat-val {
+    font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800;
+    background: linear-gradient(135deg, white, rgba(255,255,255,0.7));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  /* ── TRANSPORT SECTION ── */
+  .transport-section { background: linear-gradient(180deg, #0D2137, #091827); }
+  .transport-hero {
+    background: linear-gradient(135deg, rgba(232,148,90,0.08), rgba(231,76,60,0.06));
+    border: 1px solid rgba(232,148,90,0.2);
+    border-radius: 16px; padding: 32px; margin-bottom: 48px;
+    display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  }
+  .transport-hero-icon { font-size: 56px; flex-shrink: 0; }
+  .transport-hero h3 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .transport-hero p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 600px; }
+  .transport-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .transport-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 22px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .transport-card:hover { background: rgba(232,148,90,0.06); border-color: rgba(232,148,90,0.25); transform: translateY(-2px); }
+  .transport-card-icon { font-size: 24px; margin-bottom: 12px; }
+  .transport-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+  .transport-card p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+  .transport-card .tc-count {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    background: rgba(232,148,90,0.15); color: #F4A23A;
+    border: 1px solid rgba(232,148,90,0.3); border-radius: 100px;
+    padding: 2px 9px; margin-top: 10px;
+  }
+  .sos-demo {
+    background: #0A1929; border: 1px solid rgba(231,76,60,0.35);
+    border-radius: 16px; padding: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    animation: alertPulse 3s ease-in-out infinite;
+  }
+  .sos-steps { display: flex; flex-direction: column; gap: 14px; }
+  .sos-step {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px;
+    background: rgba(255,255,255,0.03); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .sos-step-num {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .sos-step h5 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .sos-step p { font-size: 11px; color: rgba(255,255,255,0.45); }
+  .sos-phone {
+    background: #0D1F33; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 24px; text-align: center;
+    max-width: 240px; margin: 0 auto;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  }
+  .sos-button {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, #E74C3C, #C0392B);
+    display: flex; align-items: center; justify-content: center;
+    margin: 16px auto; font-size: 36px;
+    box-shadow: 0 0 0 8px rgba(231,76,60,0.15), 0 0 0 16px rgba(231,76,60,0.08);
+    animation: sosPulse 2s ease-in-out infinite;
+    cursor: pointer; transition: transform 0.15s;
+  }
+  .sos-button:hover { transform: scale(1.05); }
+  @keyframes sosPulse { 0%,100%{box-shadow:0 0 0 8px rgba(231,76,60,0.15),0 0 0 16px rgba(231,76,60,0.08)} 50%{box-shadow:0 0 0 12px rgba(231,76,60,0.2),0 0 0 24px rgba(231,76,60,0.05)} }
+  .sos-status { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .sos-status-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,0.6); }
+  .sos-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── DOCTRINE ── */
+  .doctrine-section {
+    background: linear-gradient(135deg, #0D2137, #091827);
+    text-align: center; padding: 120px 48px;
+    position: relative; overflow: hidden;
+  }
+  .doctrine-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(26,110,191,0.12) 0%, transparent 70%);
+  }
+  .doctrine-quote {
+    position: relative; z-index: 1;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: 700; line-height: 1.25;
+    max-width: 800px; margin: 0 auto 28px;
+    letter-spacing: -0.02em;
+  }
+  .doctrine-quote em {
+    font-style: normal;
+    background: linear-gradient(135deg, #2E8EE8, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .doctrine-sub {
+    position: relative; z-index: 1;
+    color: rgba(255,255,255,0.5); font-size: 16px;
+    max-width: 520px; margin: 0 auto;
+  }
+
+  /* ── TRAINING ── */
+  .training-section { background: var(--navy); }
+  .training-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-top: 56px;
+  }
+  .training-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px; padding: 18px;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .training-card:hover { background: rgba(26,110,191,0.08); border-color: rgba(46,142,232,0.25); }
+  .training-icon { font-size: 22px; margin-bottom: 10px; }
+  .training-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .training-card p { font-size: 11px; color: rgba(255,255,255,0.4); }
+  .training-cpd {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    background: rgba(244,162,58,0.15); color: var(--accent);
+    border: 1px solid rgba(244,162,58,0.3);
+    border-radius: 100px; padding: 2px 8px; margin-top: 8px;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, #091827, #0D1F33);
+    text-align: center; padding: 120px 48px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .cta-section .section-title { max-width: 700px; margin: 0 auto 20px; }
+  .cta-section .section-sub { max-width: 480px; margin: 0 auto 44px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050F1A;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 56px 48px 36px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; max-width: 1200px; margin: 0 auto 48px;
+  }
+  .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 14px; line-height: 1.7; max-width: 280px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 16px; color: rgba(255,255,255,0.6); letter-spacing: 0.05em; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.8); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 24px; max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: rgba(255,255,255,0.25);
+  }
+
+  /* ── INCIDENT LIVE PREVIEW ── */
+  .live-incident {
+    background: rgba(13,33,55,0.95); border: 1px solid rgba(224,59,59,0.4);
+    border-radius: 12px; padding: 20px; margin-top: 20px;
+    animation: alertPulse 2s ease-in-out infinite;
+  }
+  @keyframes alertPulse { 0%,100%{box-shadow:0 0 0 0 rgba(224,59,59,0.2)} 50%{box-shadow:0 0 20px 4px rgba(224,59,59,0.15)} }
+  .live-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: pulse 1s infinite; }
+  .live-header span { font-size: 11px; font-weight: 700; color: #FF6B6B; letter-spacing: 0.08em; text-transform: uppercase; }
+  .live-code {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(224,59,59,0.15); border: 1px solid rgba(224,59,59,0.3);
+    border-radius: 6px; padding: 8px 14px; margin-bottom: 14px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: #FF8A8A;
+  }
+  .live-steps { display: flex; flex-direction: column; gap: 8px; }
+  .live-step { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .live-step-icon { font-size: 14px; }
+  .live-step-text { color: rgba(255,255,255,0.7); }
+
+  /* ── EVACUATION DASHBOARD PREVIEW ── */
+  .evac-dashboard {
+    background: #0A1929; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 20px; margin-top: 20px;
+  }
+  .evac-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 16px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .evac-stat { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; }
+  .evac-stat-label { font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .evac-stat-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; }
+  .evac-bar { height: 4px; border-radius: 2px; margin-top: 14px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .evac-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { }
+  .reveal-delay-2 { }
+  .reveal-delay-3 { }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 64px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .ai-demo-wrap { grid-template-columns: 1fr; }
+    .portals-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-badge">IS</div>
+    IncidentStandard
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#portals">Portals</a>
+    <a href="#transport">Transport</a>
+    <a href="#training">Training</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Now live globally · incidentstandard.com
+    </div>
+    <h1>The Global Standard for<br><em>Workplace Safety</em></h1>
+    <p class="hero-sub">
+      AI-powered incident reporting, real-time emergency response, training, compliance —
+      all in one platform. Built so every employee knows: <strong style="color:rgba(255,255,255,0.85)">you are never alone at work.</strong>
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">
+        <span>Start Free Trial</span>
+        <span>→</span>
+      </a>
+      <a href="#features" class="btn-secondary">
+        <span>▶</span>
+        <span>See How It Works</span>
+      </a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-icon">🌍</span> ISO 45001 Compliant</div>
+      <div class="trust-divider"></div>
+      <div class="trust-item"><span class="trust-icon">🔒</span> SOC 2 Certified</div>
+      <div class="trust-divider"></div>
+      <div class="trust-item"><span class="trust-icon">⚡</span> 2s Emergency Response</div>
+      <div class="trust-divider"></div>
+      <div class="trust-item"><span class="trust-icon">🌐</span> 20+ Jurisdictions</div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO BAR -->
+<div class="demo-bar">
+  <strong>🤖 AI-Powered:</strong>
+  <span>Employee types "needle stick" → AI activates triage protocol, surfaces treatment steps, alerts H&S Officer, pulls compliance standards — all in under 2 seconds.</span>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid container">
+    <div class="reveal">
+      <div class="stat-val">445+</div>
+      <div class="stat-label">Incident types covered across 21 categories</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="stat-val">&lt;2s</div>
+      <div class="stat-label">Emergency response activation time</div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="stat-val">$399</div>
+      <div class="stat-label">Flat 2-year license — no per-user fees</div>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <div class="stat-val">∞</div>
+      <div class="stat-label">Unlimited employee access per organization</div>
+    </div>
+  </div>
+</div>
+
+<!-- AI DEMO -->
+<section class="ai-demo-section" id="features">
+  <div class="container">
+    <div class="section-label">AI Intelligence</div>
+    <h2 class="section-title">Your AI safety co-pilot.<br>Activated instantly.</h2>
+    <p class="section-sub">The moment an employee starts typing, our AI is already triaging, guiding, and alerting — before the report is even complete.</p>
+
+    <div class="ai-demo-wrap">
+      <div class="reveal">
+        <div class="ai-terminal">
+          <div class="terminal-header">
+            <div class="terminal-dot" style="background:#FF5F56"></div>
+            <div class="terminal-dot" style="background:#FFBD2E"></div>
+            <div class="terminal-dot" style="background:#27C93F"></div>
+            <span class="terminal-title">IncidentStandard · Employee Portal</span>
+          </div>
+          <div class="terminal-body">
+            <div class="chat-row">
+              <div class="chat-avatar avatar-ai">IS</div>
+              <div class="chat-bubble bubble-ai">Hi Sarah. What happened? Describe the incident and I'll guide you through it.</div>
+            </div>
+            <div class="chat-row" style="flex-direction:row-reverse">
+              <div class="chat-avatar avatar-user">S</div>
+              <div class="chat-bubble bubble-user">I had a needle stick injury while changing a patient's IV</div>
+            </div>
+
+            <!-- ALERT ACTIVATES -->
+            <div class="live-incident">
+              <div class="live-header">
+                <div class="live-dot"></div>
+                <span>🚨 CODE BLUE ACTIVATED</span>
+              </div>
+              <div class="live-code">🩸 NEEDLE STICK PROTOCOL</div>
+              <div class="live-steps">
+                <div class="live-step"><span class="live-step-icon">✅</span><span class="live-step-text">Wash wound with soap + water for 2 minutes now</span></div>
+                <div class="live-step"><span class="live-step-icon">🚫</span><span class="live-step-text">Do NOT squeeze or suck the wound</span></div>
+                <div class="live-step"><span class="live-step-icon">📞</span><span class="live-step-text">Occupational Health has been alerted</span></div>
+                <div class="live-step"><span class="live-step-icon">⚕️</span><span class="live-step-text">HIV PEP medication available — report to OHN now</span></div>
+              </div>
+            </div>
+
+            <div class="chat-row" style="margin-top:16px">
+              <div class="chat-avatar avatar-ai">IS</div>
+              <div class="chat-bubble bubble-ai" style="font-size:12px">While you get first aid, I'm completing the incident report. Did the source patient have a known blood-borne illness?</div>
+            </div>
+            <div class="chat-row">
+              <div class="chat-bubble bubble-ai" style="margin-left:44px">
+                <div class="typing-indicator">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-features reveal reveal-delay-1">
+        <div class="ai-feature">
+          <div class="ai-feature-icon" style="background:rgba(46,142,232,0.15)">🧠</div>
+          <div class="ai-feature-text">
+            <h4>Conversational Report Writing</h4>
+            <p>AI interviews the employee and writes the formal, compliant report automatically. No blank forms. No confused employees.</p>
+          </div>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon" style="background:rgba(224,59,59,0.15)">⚡</div>
+          <div class="ai-feature-text">
+            <h4>Instant Emergency Activation</h4>
+            <p>Keywords like "fire", "explosion", "flood", "chemical spill" activate pre-built response stacks in under 800ms.</p>
+          </div>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon" style="background:rgba(24,164,110,0.15)">⚖️</div>
+          <div class="ai-feature-text">
+            <h4>Jurisdiction Intelligence</h4>
+            <p>GPS + org location auto-surfaces the applicable local law, notification deadline, and regulatory clause for every incident.</p>
+          </div>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon" style="background:rgba(244,162,58,0.15)">📚</div>
+          <div class="ai-feature-text">
+            <h4>Global Knowledge Repository</h4>
+            <p>Every verified incident feeds an anonymized AI knowledge base. Similar cases, proven interventions, and predictive risk patterns — instantly surfaced.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY CODES -->
+<section class="codes-section">
+  <div class="container">
+    <div class="section-label">Emergency Response</div>
+    <h2 class="section-title">Every code. Every emergency.<br>Activated in seconds.</h2>
+    <p class="section-sub">Pre-loaded with universal emergency protocols. Fully customizable for your organization's own codes and plans.</p>
+
+    <div class="codes-grid">
+      <div class="code-card reveal" style="background:rgba(224,59,59,0.06); border-color:rgba(224,59,59,0.25)">
+        <div class="code-badge" style="background:rgba(224,59,59,0.15); color:#FF8A8A">CODE RED</div>
+        <h4>🔥 Fire / Explosion</h4>
+        <p>RACE protocol activates immediately. Building plans, exits, extinguisher locations, and fire brigade number surfaced in under 2 seconds.</p>
+        <div class="code-trigger">Triggered by: fire, explosion, smoke, arson</div>
+      </div>
+      <div class="code-card reveal reveal-delay-1" style="background:rgba(46,142,232,0.06); border-color:rgba(46,142,232,0.25)">
+        <div class="code-badge" style="background:rgba(46,142,232,0.15); color:#7EC8F5">CODE BLUE</div>
+        <h4>🩺 Medical Emergency</h4>
+        <p>Triage guidance, ambulance alert, first aid steps, and psychological support — simultaneously, the moment injury is reported.</p>
+        <div class="code-trigger">Triggered by: injury, collapse, needle stick, cardiac</div>
+      </div>
+      <div class="code-card reveal reveal-delay-2" style="background:rgba(108,52,131,0.1); border-color:rgba(108,52,131,0.3)">
+        <div class="code-badge" style="background:rgba(108,52,131,0.2); color:#C39BD3">CODE BLACK</div>
+        <h4>🔒 Security Threat</h4>
+        <p>Lockdown protocol, security alert, police notification, and staff shelter-in-place instructions delivered to all devices.</p>
+        <div class="code-trigger">Triggered by: threat, intruder, weapon, robbery</div>
+      </div>
+      <div class="code-card reveal" style="background:rgba(24,164,110,0.06); border-color:rgba(24,164,110,0.25)">
+        <div class="code-badge" style="background:rgba(24,164,110,0.15); color:#82E0AA">HAZMAT</div>
+        <h4>🧪 Chemical / Biological</h4>
+        <p>MSDS sheet pulled instantly by chemical name. Containment steps, PPE requirements, decontamination protocol, and poison control.</p>
+        <div class="code-trigger">Triggered by: chemical, spill, gas, toxic, exposure</div>
+      </div>
+      <div class="code-card reveal reveal-delay-1" style="background:rgba(244,162,58,0.06); border-color:rgba(244,162,58,0.25)">
+        <div class="code-badge" style="background:rgba(244,162,58,0.15); color:#F9C74F">CODE ORANGE</div>
+        <h4>🚨 Full Evacuation</h4>
+        <p>Personalized safety check sent to every employee. Live accountability dashboard activated. Real-time roll call with one-tap response.</p>
+        <div class="code-trigger">Triggered by: evacuate, flood, earthquake, collapse</div>
+      </div>
+      <div class="code-card reveal reveal-delay-2" style="background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.1)">
+        <div class="code-badge" style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5)">CUSTOM</div>
+        <h4>🏢 Company Codes</h4>
+        <p>Upload your organization's own emergency codes, response plans, building diagrams, and equipment locations. Your protocols, our platform.</p>
+        <div class="code-trigger">Fully configurable per organization</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE SAFETY CHECK PREVIEW -->
+<section style="background: linear-gradient(180deg,#0D2137,#091827); padding: 96px 48px;">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+      <div class="reveal">
+        <div class="section-label">Evacuation System</div>
+        <h2 class="section-title">No one left behind.</h2>
+        <p class="section-sub" style="margin-bottom:32px">When evacuation is triggered, every registered employee receives a personalized alert — by name, with their last known location. One tap confirms safety. The H&S Officer sees it live.</p>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:rgba(255,255,255,0.7)">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(24,164,110,0.2);border:1px solid rgba(24,164,110,0.4);display:flex;align-items:center;justify-content:center;font-size:16px">✓</div>
+            Personalized email + push to every employee
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:rgba(255,255,255,0.7)">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(24,164,110,0.2);border:1px solid rgba(24,164,110,0.4);display:flex;align-items:center;justify-content:center;font-size:16px">✓</div>
+            One-tap Safe / Need Help / Not On Site
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:rgba(255,255,255,0.7)">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(24,164,110,0.2);border:1px solid rgba(24,164,110,0.4);display:flex;align-items:center;justify-content:center;font-size:16px">✓</div>
+            Unaccounted employees auto-escalated at 5, 10, 15 mins
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:rgba(255,255,255,0.7)">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(24,164,110,0.2);border:1px solid rgba(24,164,110,0.4);display:flex;align-items:center;justify-content:center;font-size:16px">✓</div>
+            Last GPS location shared with emergency services
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <!-- Email preview -->
+        <div style="background:#0A1929; border:1px solid rgba(224,59,59,0.3); border-radius:12px; padding:20px; margin-bottom:16px; animation: alertPulse 2s ease-in-out infinite;">
+          <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:12px; display:flex; gap:16px;">
+            <span>From: alerts@incidentstandard.com</span>
+          </div>
+          <div style="font-size:13px; font-weight:600; color:#FF8A8A; margin-bottom:8px;">🚨 URGENT: Evacuation Required — Acme Corp</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.7; margin-bottom:16px;">
+            Hi <strong style="color:white">Sarah Chen</strong>, this is an emergency evacuation notice.<br>
+            Your last check-in: <strong style="color:white">Floor 4, Lab B</strong> at 2:34pm<br><br>
+            Please confirm your status immediately:
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <div style="background:rgba(24,164,110,0.2);border:1px solid rgba(24,164,110,0.4);border-radius:6px;padding:8px 16px;font-size:12px;font-weight:600;color:#82E0AA;cursor:pointer">✅ I AM SAFE</div>
+            <div style="background:rgba(224,59,59,0.15);border:1px solid rgba(224,59,59,0.3);border-radius:6px;padding:8px 16px;font-size:12px;font-weight:600;color:#FF8A8A;cursor:pointer">🏥 NEED HELP</div>
+            <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:8px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer">📍 NOT ON SITE</div>
+          </div>
+        </div>
+
+        <!-- Dashboard preview -->
+        <div class="evac-dashboard">
+          <div class="evac-title">🔴 Live Evacuation Dashboard · Acme Corp</div>
+          <div class="evac-stat" style="background:rgba(24,164,110,0.1)">
+            <div class="evac-stat-label">✅ Confirmed Safe</div>
+            <div class="evac-stat-num" style="color:#82E0AA">198</div>
+          </div>
+          <div class="evac-stat" style="background:rgba(224,59,59,0.1)">
+            <div class="evac-stat-label">🏥 Need Assistance</div>
+            <div class="evac-stat-num" style="color:#FF8A8A">3</div>
+          </div>
+          <div class="evac-stat" style="background:rgba(255,200,50,0.08)">
+            <div class="evac-stat-label">❓ Unaccounted</div>
+            <div class="evac-stat-num" style="color:#F9C74F">15</div>
+          </div>
+          <div style="margin-top:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:6px">
+              <span>Accountability</span><span>80%</span>
+            </div>
+            <div class="evac-bar">
+              <div class="evac-fill" style="width:80%; background: linear-gradient(90deg, #18A46E, #2E8EE8)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTALS -->
+<section class="portals-section" id="portals">
+  <div class="container">
+    <div class="section-label">Access Architecture</div>
+    <h2 class="section-title">Four portals. One platform.<br>Right access, right person.</h2>
+    <p class="section-sub">Every stakeholder gets exactly the view, tools, and information they need — nothing more, nothing less.</p>
+
+    <div class="portals-grid">
+      <div class="portal-card reveal" style="background: linear-gradient(135deg, rgba(24,164,110,0.08), rgba(24,164,110,0.03));">
+        <div class="portal-number">01</div>
+        <div class="portal-icon">👤</div>
+        <h3>Employee Portal</h3>
+        <p>Simple, mobile-first, and calming. Every employee has instant access to report incidents, get emergency guidance, complete training, and know they are always supported.</p>
+        <div class="portal-features">
+          <div class="portal-feat">AI-guided incident reporting</div>
+          <div class="portal-feat">Emergency code + guidance</div>
+          <div class="portal-feat">Training modules + CPD</div>
+          <div class="portal-feat">Psychological support access</div>
+          <div class="portal-feat">Anonymous reporting option</div>
+        </div>
+      </div>
+      <div class="portal-card reveal reveal-delay-1" style="background: linear-gradient(135deg, rgba(46,142,232,0.08), rgba(46,142,232,0.03));">
+        <div class="portal-number">02</div>
+        <div class="portal-icon">🛡️</div>
+        <h3>H&S Officer Portal</h3>
+        <p>The command centre for safety professionals. Full case management, live evacuation dashboard, compliance report generation, and real-time analytics — all in one screen.</p>
+        <div class="portal-features">
+          <div class="portal-feat">Live case management</div>
+          <div class="portal-feat">Evacuation accountability dashboard</div>
+          <div class="portal-feat">Auto-generated compliance reports</div>
+          <div class="portal-feat">Smart case assignment routing</div>
+          <div class="portal-feat">Risk trend analytics</div>
+        </div>
+      </div>
+      <div class="portal-card reveal" style="background: linear-gradient(135deg, rgba(108,52,131,0.1), rgba(108,52,131,0.04));">
+        <div class="portal-number">03</div>
+        <div class="portal-icon">📊</div>
+        <h3>Authority / Executive Portal</h3>
+        <p>Board-ready dashboards and audit trails. Leadership gets the compliance health score, incident trends, and regulatory status — without needing to understand the detail.</p>
+        <div class="portal-features">
+          <div class="portal-feat">Compliance health score</div>
+          <div class="portal-feat">Full audit trail</div>
+          <div class="portal-feat">Regulatory deadline tracking</div>
+          <div class="portal-feat">Department benchmarking</div>
+          <div class="portal-feat">One-click export for regulators</div>
+        </div>
+      </div>
+      <div class="portal-card reveal reveal-delay-1" style="background: linear-gradient(135deg, rgba(244,162,58,0.08), rgba(244,162,58,0.03));">
+        <div class="portal-number">04</div>
+        <div class="portal-icon">✅</div>
+        <h3>Case Officer Portal</h3>
+        <p>The human intelligence layer that makes IncidentStandard trusted. Case officers verify every report, ensure quality, and maintain the integrity of the global knowledge base.</p>
+        <div class="portal-features">
+          <div class="portal-feat">Incident verification workflow</div>
+          <div class="portal-feat">Quality control tools</div>
+          <div class="portal-feat">Escalation management</div>
+          <div class="portal-feat">Case resolution tracking</div>
+          <div class="portal-feat">Knowledge base contribution</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section class="training-section" id="training">
+  <div class="container">
+    <div class="section-label">Training Platform</div>
+    <h2 class="section-title">Replace your LMS.<br>Built right in.</h2>
+    <p class="section-sub">Pre-built training modules across every incident category. Auto-generated CPD certificates. Compliance calendar with escalating reminders. No separate tool needed.</p>
+
+    <div class="training-grid">
+      <div class="training-card reveal"><div class="training-icon">🔥</div><h4>Fire Safety</h4><p>Evacuation drills, RACE protocol, extinguisher use</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🧪</div><h4>Chemical Handling</h4><p>MSDS awareness, PPE, spill containment</p><div class="training-cpd">3 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🏋️</div><h4>Manual Handling</h4><p>Safe lifting, ergonomics, musculoskeletal risk</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🧠</div><h4>Mental Health</h4><p>Wellbeing at work, stress, EAP awareness</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🚫</div><h4>Sexual Harassment</h4><p>Policy, reporting, investigation rights</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">💻</div><h4>Cybersecurity</h4><p>Phishing, data protection, GDPR basics</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">⬆️</div><h4>Working at Heights</h4><p>Fall prevention, harness, scaffold safety</p><div class="training-cpd">3 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🚗</div><h4>Vehicle Safety</h4><p>Fleet safety, forklift, site vehicle rules</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">⚡</div><h4>Electrical Safety</h4><p>Isolation, arc flash, safe work procedures</p><div class="training-cpd">3 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🏗️</div><h4>Construction Safety</h4><p>Site induction, hazards, permit to work</p><div class="training-cpd">4 CPD Points</div></div>
+      <div class="training-card reveal"><div class="training-icon">🌊</div><h4>Emergency Evacuation</h4><p>Assembly points, warden duties, drill procedures</p><div class="training-cpd">2 CPD Points</div></div>
+      <div class="training-card reveal" style="background:rgba(244,162,58,0.05); border-color:rgba(244,162,58,0.2)"><div class="training-icon">➕</div><h4>Custom Modules</h4><p>Upload your own videos, slides, and quizzes</p><div class="training-cpd" style="color:var(--accent);border-color:rgba(244,162,58,0.3)">Configurable</div></div>
+    </div>
+
+    <div style="margin-top:48px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:32px; display:flex; gap:48px; align-items:center; flex-wrap:wrap; justify-content:center; text-align:center;">
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:36px; font-weight:800; color:var(--accent)">Auto</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px">Generated calendar</div>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:36px; font-weight:800; color:var(--green)">PDF</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px">Certificates issued</div>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:36px; font-weight:800; color:var(--blue-bright)">CPD</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px">Points auto-assigned</div>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:36px; font-weight:800; color:rgba(255,255,255,0.8)">🔔</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px">Escalating reminders</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPORT & MOBILE WORKFORCE -->
+<section class="transport-section" id="transport">
+  <div class="container">
+    <div class="section-label">New Vertical — Category 21</div>
+    <h2 class="section-title">Built for the road.<br>Every driver. Every shift.</h2>
+    <p class="section-sub">Rideshare, taxi, bus, freight — mobile workers are lone workers. IncidentStandard now covers every incident a driver faces, with one-tap SOS and live GPS response.</p>
+
+    <div class="transport-hero reveal" style="margin-top:48px">
+      <div class="transport-hero-icon">🚗</div>
+      <div>
+        <h3>Road Transport & Mobile Workforce</h3>
+        <p>41 new incident types across 5 sub-categories. From aggressive passengers to road accidents to cargo theft — every incident a driver faces is now covered, triaged, and escalated in real time. At $399 for 2 years, that's less than <strong style="color:var(--accent)">$8 per driver</strong> — below any procurement threshold in any fleet globally.</p>
+      </div>
+    </div>
+
+    <div class="transport-grid">
+      <div class="transport-card reveal">
+        <div class="transport-card-icon">😤</div>
+        <h4>Passenger Violence & Behaviour</h4>
+        <p>Aggression, assault, sexual harassment, weapon threats, spitting, false accusations — each with its own AI-guided response protocol.</p>
+        <div class="tc-count">12 incident types</div>
+      </div>
+      <div class="transport-card reveal reveal-delay-1">
+        <div class="transport-card-icon">🚘</div>
+        <h4>Vehicle Incidents & Accidents</h4>
+        <p>RTA at fault or not, vehicle damage by passengers, carjacking, breakdown, tyre blowout, vehicle fire — full insurance and police workflow.</p>
+        <div class="tc-count">10 incident types</div>
+      </div>
+      <div class="transport-card reveal reveal-delay-2">
+        <div class="transport-card-icon">🧍</div>
+        <h4>Driver Health & Welfare</h4>
+        <p>Medical emergency, fatigue, panic attack, robbery, road rage, biohazard exposure — driver welfare is the core doctrine in this category.</p>
+        <div class="tc-count">9 incident types</div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-card-icon">📦</div>
+        <h4>Freight & Delivery Specific</h4>
+        <p>Cargo theft, dangerous goods, hostile recipients, tail lift failure, temperature breach, overloaded vehicle — full compliance workflow.</p>
+        <div class="tc-count">7 incident types</div>
+      </div>
+      <div class="transport-card reveal reveal-delay-1">
+        <div class="transport-card-icon">🌧️</div>
+        <h4>Environmental & Road Conditions</h4>
+        <p>Severe weather, near misses with pedestrians and cyclists, road obstructions, animal strikes — all reported and routed to dispatch.</p>
+        <div class="tc-count">5 incident types</div>
+      </div>
+      <div class="transport-card reveal reveal-delay-2" style="background:rgba(244,162,58,0.05); border-color:rgba(244,162,58,0.2)">
+        <div class="transport-card-icon">📱</div>
+        <h4>Passenger QR Safety Code</h4>
+        <p>Every registered vehicle gets a QR code. Passengers scan to report driver misconduct — bidirectional safety, one neutral platform.</p>
+        <div class="tc-count" style="color:var(--accent);border-color:rgba(244,162,58,0.3)">Unique feature</div>
+      </div>
+    </div>
+
+    <!-- SOS Demo -->
+    <div class="sos-demo reveal">
+      <div>
+        <div class="section-label">Driver SOS System</div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:26px; font-weight:700; margin-bottom:12px; line-height:1.2">One button.<br>Police in 10 seconds.</h3>
+        <p style="font-size:14px; color:rgba(255,255,255,0.5); margin-bottom:28px; line-height:1.7">The driver never has to type, explain, or even speak. One tap activates the full emergency response stack silently — the passenger has no idea.</p>
+        <div class="sos-steps">
+          <div class="sos-step">
+            <div class="sos-step-num" style="background:rgba(231,76,60,0.2); color:#FF8A8A">1</div>
+            <div><h5>Driver taps SOS</h5><p>One button. Works with phone locked. No typing required.</p></div>
+          </div>
+          <div class="sos-step">
+            <div class="sos-step-num" style="background:rgba(231,150,58,0.2); color:#F4A23A">2</div>
+            <div><h5>Silent alert — 3 parties simultaneously</h5><p>Police, dispatch, and operator notified. Passenger unaware.</p></div>
+          </div>
+          <div class="sos-step">
+            <div class="sos-step-num" style="background:rgba(46,142,232,0.2); color:#7EC8F5">3</div>
+            <div><h5>GPS locked and streaming live</h5><p>Police see exact location in real time. Auto-updates every 5 seconds.</p></div>
+          </div>
+          <div class="sos-step">
+            <div class="sos-step-num" style="background:rgba(24,164,110,0.2); color:#82E0AA">4</div>
+            <div><h5>Dashcam + passenger data preserved</h5><p>All evidence locked automatically. Cannot be overwritten.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sos-phone">
+          <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:4px; letter-spacing:0.05em">INCIDENTSTANDARD</div>
+          <div style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.8); margin-bottom:4px">Driver Portal</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.3); margin-bottom:8px">Sarah M. · Trip #4821 · Active</div>
+          <div class="sos-button">🆘</div>
+          <div style="font-size:11px; font-weight:600; color:#FF8A8A; margin-bottom:4px">Tap for emergency</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.3); margin-bottom:16px">Silent — passenger won't see</div>
+          <div class="sos-status">
+            <div class="sos-status-item">
+              <div class="sos-status-dot" style="background:var(--green); animation:pulse 1.5s infinite"></div>
+              GPS active · Live streaming
+            </div>
+            <div class="sos-status-item">
+              <div class="sos-status-dot" style="background:var(--blue-bright)"></div>
+              Dispatch connected
+            </div>
+            <div class="sos-status-item">
+              <div class="sos-status-dot" style="background:var(--accent)"></div>
+              Welfare check: 47min remaining
+            </div>
+          </div>
+        </div>
+
+        <!-- lone worker timer -->
+        <div style="margin-top:16px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.4); letter-spacing:0.05em; margin-bottom:10px; text-transform:uppercase">Lone Driver Welfare Timer</div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,0.5); margin-bottom:6px"><span>Check-in every 60 mins</span><span style="color:var(--green)">Active ✓</span></div>
+          <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden">
+            <div style="height:100%; width:78%; background:linear-gradient(90deg,var(--green),var(--blue-bright)); border-radius:3px"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:10px; color:rgba(255,255,255,0.3); margin-top:6px"><span>Last check-in: 13 mins ago</span><span>47 mins left</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTRINE -->
+<section class="doctrine-section">
+  <div class="doctrine-bg"></div>
+  <p class="doctrine-quote">"No employee should ever face an incident <em>alone, unprepared,<br>or unsupported."</em></p>
+  <p class="doctrine-sub">This is not a mission statement. It's the design philosophy behind every feature, every workflow, and every line of code in IncidentStandard.</p>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="container" style="text-align:center">
+    <div class="section-label" style="justify-content:center">Pricing</div>
+    <h2 class="section-title">Simple. Flat. Global.</h2>
+    <p class="section-sub" style="margin:0 auto">One price. Every feature. Every organization on earth. No per-user fees. No add-ons. No surprises.</p>
+
+    <div class="pricing-card reveal">
+      <div class="pricing-header">
+        <div class="pricing-badge">2-YEAR FLAT LICENSE</div>
+        <div class="pricing-amount"><sup>$</sup>399</div>
+        <div class="pricing-period">for 2 full years · less than $17/month</div>
+      </div>
+      <div class="pricing-includes">
+        <div class="pricing-item"><div class="pricing-check">✓</div>All 7 platform modules included</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>5 named H&S Officer accounts (max 7)</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>Unlimited employee access via org code</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>400+ incident types, 20 categories</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>ISO 45001, OSHA, UK HSE, EU-OSHA built in</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>AI knowledge repository access</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>Full training platform + CPD certificates</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>Compliance calendar + automated reminders</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>Company resource hub (plans, videos, MSDS)</div>
+        <div class="pricing-item"><div class="pricing-check">✓</div>Credit card or invoice payment accepted</div>
+      </div>
+      <div class="pricing-footer">
+        <a href="#" class="btn-primary">Start Your Free Trial →</a>
+        <p class="pricing-note">No credit card required for trial · Cancel anytime · 30-day money back guarantee</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label" style="justify-content:center">Get Started Today</div>
+    <h2 class="section-title reveal">Your employees deserve to feel<br>covered. Starting now.</h2>
+    <p class="section-sub reveal">Join organizations globally who have given their employees the one thing every person deserves at work: the certainty that help is always there.</p>
+    <div class="hero-actions reveal">
+      <a href="#" class="btn-primary">Get IncidentStandard →</a>
+      <a href="#" class="btn-secondary">📞 Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="text-decoration:none">
+        <div class="nav-logo-badge">IS</div>
+        IncidentStandard
+      </a>
+      <p>The global standard for workplace safety intelligence. Built so every employee knows they are never alone at work.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Product</h5>
+      <a href="#">Employee Portal</a>
+      <a href="#">H&S Officer Portal</a>
+      <a href="#">Authority Portal</a>
+      <a href="#">Training Platform</a>
+      <a href="#">Emergency Response</a>
+    </div>
+    <div class="footer-col">
+      <h5>Standards</h5>
+      <a href="#">ISO 45001</a>
+      <a href="#">OSHA Compliance</a>
+      <a href="#">UK HSE</a>
+      <a href="#">EU-OSHA</a>
+      <a href="#">AS/NZS 4801</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About Us</a>
+      <a href="#">Pricing</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 IncidentStandard Ltd. All rights reserved.</span>
+    <span>incidentstandard.com · Always There. Always Ready. Always For You.</span>
+  </div>
+</footer>
+
+<script>
+  // Make all content visible immediately — no scroll gate
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+
+  // Progressive enhancement: re-add scroll animation for browsers that support it well
+  if (window.IntersectionObserver) {
+    const style = document.createElement('style');
+    style.textContent = `.reveal-anim { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; } .reveal-anim.in { opacity: 1; transform: translateY(0); }`;
+    document.head.appendChild(style);
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => { el.classList.add('reveal-anim'); obs.observe(el); });
+  }
+
+  // Animated evacuation bar
+  setTimeout(() => {
+    const fill = document.querySelector('.evac-fill');
+    if (fill) fill.style.width = '80%';
+  }, 500);
+
+  // Simulate live counter
+  const safeNum = document.querySelector('.evac-stat-num');
+  if (safeNum) {
+    let count = 180;
+    const interval = setInterval(() => {
+      if (count < 198) {
+        count++;
+        safeNum.textContent = count;
+      } else {
+        clearInterval(interval);
+      }
+    }, 120);
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', ()
