@@ -94,7 +94,7 @@ Every verified incident feeds an anonymised global knowledge base. Similar cases
 
 ```
 ┌─────────────────────┐  ┌─────────────────────┐
-│   👤 EMPLOYEE        │  │   🛡️ H&S OFFICER     │
+│   👤 EMPLOYEE       │  │   🛡️ H&S OFFICER   │
 │                     │  │                     │
 │  · Report incidents │  │  · Case management  │
 │  · Emergency guide  │  │  · Live evacuation  │
@@ -103,7 +103,7 @@ Every verified incident feeds an anonymised global knowledge base. Similar cases
 └─────────────────────┘  └─────────────────────┘
 
 ┌─────────────────────┐  ┌─────────────────────┐
-│   📊 AUTHORITY       │  │   ✅ CASE OFFICER    │
+│   📊 AUTHORITY      │  │   ✅ CASE OFFICER  │
 │                     │  │                     │
 │  · KPI dashboards   │  │  · Verification     │
 │  · Audit trail      │  │  · Quality control  │
